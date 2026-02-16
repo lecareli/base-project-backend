@@ -10,8 +10,9 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuidMorphs('addressable');
             $table->foreignUuid('tenant_id')->constrained('tenants')->cascadeOnDelete();
-            $table->string('type', 50)->default('MAIN');
+            $table->string('type', 50)->default('BILLING');
             $table->boolean('is_primary')->default(false);
             $table->string('zip', 12);
             $table->string('street', 150);
@@ -28,6 +29,7 @@ return new class extends Migration
             //index
             $table->index(['tenant_id']);
             $table->index(['is_primary']);
+            $table->index(['type']);
         });
     }
 

@@ -25,6 +25,7 @@ return new class extends Migration
             //index
             $table->unique(['document_type', 'document_number']);
             $table->index(['is_active']);
+            $table->index(['type']);
         });
     }
 

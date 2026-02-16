@@ -2,10 +2,14 @@
 
 namespace App\Modules\Tenants\Domain\Models;
 
+use App\Modules\Addresses\Domain\Models\Address;
 use App\Modules\Tenants\Domain\Enum\DocumentTypeEnum;
 use App\Modules\Tenants\Domain\Enum\PersonTypeEnum;
+use App\Modules\Users\Domain\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tenant extends Model
@@ -31,4 +35,15 @@ class Tenant extends Model
         'type'          => PersonTypeEnum::class,
         'document_type' => DocumentTypeEnum::class,
     ];
+
+    //relationships
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class, 'tenant_id');
+    }
+
+    public function addresses(): MorphMany
+    {
+        return $this->morphMany(Address::class, 'addressable');
+    }
 }
