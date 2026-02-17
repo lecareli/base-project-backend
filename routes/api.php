@@ -1,8 +1,4 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+require base_path('app/Modules/Auditing/Presentation/Routes/internal.php');
+require base_path('app/Modules/Errors/Presentation/Routes/internal.php');
